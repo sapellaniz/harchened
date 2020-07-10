@@ -2,7 +2,11 @@
 
 This project covers installing and hardening Arch Linux (UEFI systems).
 
-First some basic configurations will be made and then the hardening will be implemented following a [checklist][check] to get a fully functional and safe workstation.
+First some basic configurations will be made and then the hardening will be implemented following a checklist to get a fully functional and safe workstation.
+
+All security measures are included in a [checklist][check], This checklist is inspired by the [hardening checklist of the University of Texas at Austin][utexas].
+
+This checklist includes [CIS Benchmarks][cis] and some additional settings that I consider interesting and are not covered by the CIS.
 
 ## Index
 
@@ -76,7 +80,7 @@ echo -e "proc\t/proc\tproc\thidepid=2\t0 0" >> /etc/fstab
 arch-chroot /mnt
 
 ```
-### 1.3 Install packages
+### 1.3 Installing basic packages
 The fastest mirrors are configured before installing all packages.
 ```
 reflector --latest 200 --sort rate --save /etc/pacman.d/mirrorlist
@@ -127,10 +131,38 @@ reboot
 
 ```
 ## 2. Network Security
-### 2.1
-### 2.1
+### 2.1 Connect wifi & disable IPv6
+```
+nmcli d wifi list
+nmcli d wifi connect <my_wifi> password <password>
+nmcli con mod <my_wifi> ipv6.method "disabled"
+```
+### 2.2 nftables
+```
+curl noseke > nftables.conf
+sudo mv nftables.conf /etc
+sudo systemctl enable nftables
+```
+### 2.3 Network parameters
+```
+curl noseke > sysctl.conf
+sudo mv sysctl.conf /etc/sysctl.d
+```
 ## 3. Kernel Hardening
+### 3.1 Lynis
+```
+sudo powerpill -S lynis
+sudo lynis audit system > kernel_secure_values.conf
+vim kernel_secure_values.conf
+    # Delete everything except the lines of the kernel hardening section with the word DIFFERENT
+    # Convert the rest of the lines into the sysctl configuration format.
+    # Set each parameter to the exp value that's currently within the pairs of parentheses.
+sudo mv kernel_secure_values.conf /etc/sysctl.d/
+reboot
+```
 ## 4. OS Hardening
+### 4.1
+### 4.1
 ## 5. Environment (optional)
 
 [1]:[https://gitlab.com/sapellaniz/harchened/master/README.md#1-installation]
@@ -139,4 +171,5 @@ reboot
 [4]:[https://gitlab.com/sapellaniz/harchened/master/README.md#4-os-hardening]
 [5]:[https://gitlab.com/sapellaniz/harchened/master/README.md#5-environment-optional]
 [check]:[]
-
+[cis]:[]
+[utexas]:[https://security.utexas.edu/os-hardening-checklist/linux-7]
