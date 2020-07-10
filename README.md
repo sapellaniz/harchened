@@ -22,7 +22,7 @@ This checklist includes [CIS Benchmarks][cis] and some additional settings that 
 loadkeys es
 wifi-menu
 ```
-### 1.2 Partitioning (LVM on LUKS)
+### 1.2 Create partitions (LVM on LUKS)
 
 First you have to partition the disk, in this case an LVM partition encrypted with LUKS will be created with the advantage of being able to decrypt all the partitions by entering the password only once every startup.
 ```
@@ -80,7 +80,7 @@ echo -e "proc\t/proc\tproc\thidepid=2\t0 0" >> /etc/fstab
 arch-chroot /mnt
 
 ```
-### 1.3 Installing basic packages
+### 1.3 Install basic packages
 The fastest mirrors are configured before installing all packages.
 ```
 reflector --latest 200 --sort rate --save /etc/pacman.d/mirrorlist
@@ -88,7 +88,7 @@ pacman -S linux linux-lts linux-headers linux-lts-headers linux-firmware \
     lvm2 grub efibootmgr dosfstools os-prober mtools \
     base-devel intel-ucode vim networkmanager sudo git
 ```
-### 1.4 Installing grub
+### 1.4 Install grub
 ```
 vim /etc/default/grub
     GRUB_ENABLE_CRYPTODISK=y
@@ -117,7 +117,7 @@ su x
 sudo passwd -l root
 
 ```
-### 1.7 Installing yay & powerpill
+### 1.7 Install yay & powerpill
 ```
 cd /opt
 sudo git clone https://aur.archlinux.org/yay-git.git
@@ -161,9 +161,66 @@ sudo mv kernel_secure_values.conf /etc/sysctl.d/
 reboot
 ```
 ## 4. OS Hardening
-### 4.1
-### 4.1
+### 4.1 umask
+```
+sudo vim /etc/profile
+    umask 027
+```
+### 4.2 Remove orphans
+```
+sudo powerpill -Rns $(powerpill -Qtdq)
+```
+### 4.3 Chmod last command
+```
+sudo chmod o-rx $(which last)
+```
 ## 5. Environment (optional)
+### 5.1 x-server & window manager & hotkey-daemon & terminator
+```
+sudo powerpill -S xorg bspwm sxhkd terminator xorg-xinit
+mkdir ~/.config/bspwm ~/.config/sxhkd
+cp /usr/share/doc/bspwn/examples/bspwmrc ~/.config/bspwm
+cp /usr/share/doc/bspwn/examples/sxkhdrc ~/.config/sxhkd
+chmod u+x ~/.config/bspwm/bspwmrc
+vim ~/.config/sxhkd
+    # Change the supr + return hotkey for terminator
+echo "sxhkd & exec bspwm" > ~/.xinitrc
+vim ~/.bashrc
+    # setxkbmap es
+    # if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
+    #   exec startx
+    # fi
+```
+### 5.2 firefox & wget
+```
+sudo powerpill -S firefox wget
+```
+### 5.3 wallpaper & pointer
+```
+sudo powerpill -S xwallpaper
+wget ...wallpaper.png -O ~/.config/wall.png
+echo "xwallpaper --focus ~/.config/wall.png" >> ~/.config/bspwm/bspwmrc
+echo "xsetroot -cursor_name left_ptr" >> ~/.config/bspwm/bspwmrc
+```
+### 5.4 rofi
+```
+sudo powerpill -S rofi
+vim ~/.config/sxhkd/sxhkdrc
+    # supr + d
+    #   rofi -show run
+```
+### 5.5 polybar
+```
+yay -S polybar-git
+mkdir ~/.config/polybar
+wget ...config -O ~/.config/polybar/config
+vim ~/.config/polybar/launch.sh
+    # killall -q polybar
+    # while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
+    # polybar mybar
+chmod +x ~/.config/polybar/launch.sh
+echo "~/.config/polybar/launch.sh &" >> /.config/bspwm/bspwmrc
+```
 
 [1]:[https://gitlab.com/sapellaniz/harchened/master/README.md#1-installation]
 [2]:[https://gitlab.com/sapellaniz/harchened/master/README.md#2-network-security]
