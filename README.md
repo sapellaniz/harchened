@@ -145,8 +145,8 @@ sudo systemctl enable nftables
 ```
 ### 2.3 Network parameters
 ```
-curl noseke > sysctl.conf
-sudo mv sysctl.conf /etc/sysctl.d
+curl noseke > networking_secure_values.conf
+sudo mv networking_secure_values.conf /etc/sysctl.d
 ```
 ## 3. Kernel Hardening
 ### 3.1 Lynis
