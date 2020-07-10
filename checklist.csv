@@ -1,3 +1,4 @@
-Step,(Check),Todo,CIS
-,,Filesystem,
-1,,"Create a separate partition with the nodev, nosuid, and noexec options set for /tmp","1.1.2-5"
+Step,Check,Todo,CIS
+1,2,3,4
+1,2,3,4
+1,2,3,4
