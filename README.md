@@ -222,11 +222,11 @@ chmod +x ~/.config/polybar/launch.sh
 echo "~/.config/polybar/launch.sh &" >> /.config/bspwm/bspwmrc
 ```
 
-[1]:[https://gitlab.com/sapellaniz/harchened#1-installation]
-[2]:[https://gitlab.com/sapellaniz/harchened#2-network-security]
-[3]:[https://gitlab.com/sapellaniz/harchened#3-kernel-hardening]
-[4]:[https://gitlab.com/sapellaniz/harchened#4-os-hardening]
-[5]:[https://gitlab.com/sapellaniz/harchened#5-environment-optional]
-[check]:[]
-[cis]:[]
-[utexas]:[https://security.utexas.edu/os-hardening-checklist/linux-7]
+[1]:https://gitlab.com/sapellaniz/harchened#1-installation
+[2]:https://gitlab.com/sapellaniz/harchened#2-network-security
+[3]:https://gitlab.com/sapellaniz/harchened#3-kernel-hardening
+[4]:https://gitlab.com/sapellaniz/harchened#4-os-hardening
+[5]:https://gitlab.com/sapellaniz/harchened#5-environment-optional
+[check]:
+[cis]:
+[utexas]:https://security.utexas.edu/os-hardening-checklist/linux-
