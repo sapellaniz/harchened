@@ -88,8 +88,13 @@ pacman -S linux linux-lts linux-headers linux-lts-headers linux-firmware \
     lvm2 grub efibootmgr dosfstools os-prober mtools \
     base-devel intel-ucode vim networkmanager sudo git
 ```
-### 1.4 Install grub
+### 1.4 Initial ramdisks & grub
 ```
+vim /etc/mkinitcpio.conf
+    HOOKS=(base udev autodetect modconf block encrypt lvm2 filesystems keyboard fsck)
+mkinitcpio -p linux
+mkinitcpio -p linux-lts
+
 vim /etc/default/grub
     GRUB_ENABLE_CRYPTODISK=y
     GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 cryptdevice=/dev/sda3:LVM:allow-discards quiet"
