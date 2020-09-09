@@ -150,7 +150,7 @@ sudo systemctl enable nftables
 ```
 ### 2.3 Network parameters
 ```
-curl https://gitlab.com/sapellaniz/harchened/-/blob/master/networking_secure_values.conf > networking_secure_values.conf
+curl https://gitlab.com/sapellaniz/harchened/-/raw/master/networking_secure_values.conf > networking_secure_values.conf
 sudo mv networking_secure_values.conf /etc/sysctl.d
 ```
 ## 3. Kernel Hardening
