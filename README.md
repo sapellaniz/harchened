@@ -86,7 +86,7 @@ The fastest mirrors are configured before installing all packages.
 reflector --latest 200 --sort rate --save /etc/pacman.d/mirrorlist
 pacman -S linux linux-lts linux-headers linux-lts-headers linux-firmware \
     lvm2 grub efibootmgr dosfstools os-prober mtools \
-    base-devel intel-ucode vim networkmanager sudo git
+    base-devel intel-ucode vim networkmanager sudo git nftables
 ```
 ### 1.4 Initial ramdisks & grub
 ```
@@ -159,7 +159,7 @@ sudo mv networking_secure_values.conf /etc/sysctl.d
 sudo powerpill -S lynis
 sudo lynis audit system > kernel_secure_values.conf
 vim kernel_secure_values.conf
-    # Delete everything except the lines of the kernel hardening section with the word DIFFERENT
+    # Delete everything except the lines of the "Kernel Hardening" section with the word DIFFERENT
     # Convert the rest of the lines into the sysctl configuration format.
     # Set each parameter to the exp value that's currently within the pairs of parentheses.
 sudo mv kernel_secure_values.conf /etc/sysctl.d/
