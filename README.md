@@ -179,52 +179,8 @@ sudo powerpill -Rns $(powerpill -Qtdq)
 sudo chmod o-rx $(which last)
 ```
 ## 5. Environment (optional)
-### 5.1 x-server & window manager & hotkey-daemon & terminator
-```
-sudo powerpill -S xorg bspwm sxhkd terminator xorg-xinit
-mkdir ~/.config/bspwm ~/.config/sxhkd
-cp /usr/share/doc/bspwn/examples/bspwmrc ~/.config/bspwm
-cp /usr/share/doc/bspwn/examples/sxkhdrc ~/.config/sxhkd
-chmod u+x ~/.config/bspwm/bspwmrc
-vim ~/.config/sxhkd
-    # Change the supr + return hotkey for terminator
-echo "sxhkd & exec bspwm" > ~/.xinitrc
-vim ~/.bashrc
-    # setxkbmap es
-    # if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
-    #   exec startx
-    # fi
-```
-### 5.2 firefox & wget
-```
-sudo powerpill -S firefox wget
-```
-### 5.3 wallpaper & pointer
-```
-sudo powerpill -S xwallpaper
-wget ...wallpaper.png -O ~/.config/wall.png
-echo "xwallpaper --focus ~/.config/wall.png" >> ~/.config/bspwm/bspwmrc
-echo "xsetroot -cursor_name left_ptr" >> ~/.config/bspwm/bspwmrc
-```
-### 5.4 rofi
-```
-sudo powerpill -S rofi
-vim ~/.config/sxhkd/sxhkdrc
-    # supr + d
-    #   rofi -show run
-```
-### 5.5 polybar
-```
-yay -S polybar-git
-mkdir ~/.config/polybar
-wget ...config -O ~/.config/polybar/config
-vim ~/.config/polybar/launch.sh
-    # killall -q polybar
-    # while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
-    # polybar mybar
-chmod +x ~/.config/polybar/launch.sh
-echo "~/.config/polybar/launch.sh &" >> /.config/bspwm/bspwmrc
-```
+
+https://gitlab.com/sapellaniz/auto-arch
 
 [1]:https://gitlab.com/sapellaniz/harchened#1-installation
 [2]:https://gitlab.com/sapellaniz/harchened#2-network-security
