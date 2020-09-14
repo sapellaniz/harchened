@@ -110,6 +110,8 @@ systemctl enable NetworkManager
 echo Harchened > /etc/hostname
 ln -s /usr/share/zoneinfo/Europe/Madrid /etc/localtime
 hwclock --systohc --utc
+echo "es_ES.UTF-8 UTF-8" > /etc/locale.gen
+locale-gen
 ```
 ### 1.6 Create user & disable root account
 ```
