@@ -149,6 +149,7 @@ nmcli con mod <my_wifi> ipv6.method "disabled"
 ### 2.2 nftables
 ```
 curl https://gitlab.com/sapellaniz/harchened/-/raw/master/nftables.conf > nftables.conf
+sudo mv nftables.conf /etc/nftables.conf
 sudo systemctl enable nftables
 ```
 ### 2.3 Network parameters
