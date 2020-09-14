@@ -111,7 +111,9 @@ echo Harchened > /etc/hostname
 ln -s /usr/share/zoneinfo/Europe/Madrid /etc/localtime
 hwclock --systohc --utc
 echo "es_ES.UTF-8 UTF-8" > /etc/locale.gen
-locale-gen
+echo "LC_ALL=es_ES.UTF-8" >> /etc/environment
+echo "LANG=es_ES.UTF-8" > /etc/locale.conf
+locale-gen es_ES.UTF-8
 ```
 ### 1.6 Create user & disable root account
 ```
